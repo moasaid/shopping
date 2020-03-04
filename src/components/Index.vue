@@ -25,10 +25,13 @@
     }
   },
   methods: {
-    deleteShopping(id){
-      this.shopping_list = this.shopping_list.filter(shopping => {
-        return shopping.id != id
-      })
+    deleteShopping(id) {
+      db.collection('shopping_list').doc(id).delete()
+        .then(() => {
+          this.shopping_list = this.shopping_list.filter(shopping => {
+            return shopping.id != id
+          })
+        })
     }
   },
   created(){

@@ -2,11 +2,11 @@
   <div class='navbar'>
     <nav class='nav-extended blue darken-3'>
       <div class='nav-content'>
-        <router-link to="">
+        <router-link :to="{name: 'Index'}">
           <span class='nav-title'>Your Shopping List</span>
         </router-link>
         <a href="" class='btn-floating btn-large halfway-fab amber accent-4'>
-          <router-link to="">
+          <router-link :to="{name: 'Shopping'}">
             <i class='material-icons'>add</i>
           </router-link>
         </a>
