@@ -3,6 +3,9 @@
     <div class="card" v-for="shopping in shopping_list" :key="shopping.id">
       <div class="card-content">
         <i class="material-icons delete" @click="deleteShopping(shopping.id)">delete</i>
+        <router-link :to="{name: 'EditShopping', params: {shopping_slug: shopping.slug}}">
+          <i class="material-icons edit">mode_edit</i>
+        </router-link>
         <h2>{{ shopping.title }}</h2>
         <ul class="ingredients">
           <li v-for="(item, index) in shopping.items" :key="index" >
@@ -73,10 +76,20 @@
  }
   .index .delete {
     position: absolute;
+
     top: 5px;
     right: 5px;
     cursor: pointer;
-    color: #aaa;
+    color: #f44336;
+    font-size: 1.4em;
+  }
+
+  .index .edit {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: #1565c0;
+    cursor: pointer;
     font-size: 1.4em;
   }
 </style>
