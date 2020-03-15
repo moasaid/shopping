@@ -26,7 +26,8 @@
 </template>
 
 <script>
-import db from "@/firebase/init";
+import db from "@/firebase/init"
+import slugify from 'slugify'
 
 export default {
   name: "EditShopping",
@@ -50,8 +51,28 @@ export default {
   },
   methods: {
     editShopping(){
-      console.log(this.shopping_list.title, this.shopping_list.items)
-    },
+      if(this.shopping_list.title){
+          this.feedback = null
+          this.shopping_list.slug = slugify(this.shopping_list.title, {
+            replacement: '-', //add '-' wherever there are spaces between words
+            remove: /[$*_+~.()'"!\-:@]/g, //remove the mentioned characters
+            lower: true //all letters in lower case
+          })
+          db.collection('shopping_list').doc(this.shopping_list.id).update({
+            title: this.shopping_list.title,
+            items: this.shopping_list.items,
+            slug: this.shopping_list.slug
+          })
+            .then(() => {
+              this.$router.push({name: 'Index'});
+            })
+            .catch(error => {
+              console.log(error);
+            })
+        }else{
+          this.feedback = 'Please enter an Shopping List Name';
+        }
+      },
     deleteIt(it) {
       this.shopping_list.items = this.shopping_list.items.filter(item => {
         // the items defined in data method is equal to following filtered method
